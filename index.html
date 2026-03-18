@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tekhnogaint — IT Services</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg:       #f0f4f9;
+  --bg2:      #e6edf6;
+  --surface:  #ffffff;
+  --surface2: #f7fafd;
+  --navy:     #0b1f3a;
+  --navy2:    #132d52;
+  --accent:   #1565d8;
+  --accent2:  #0ea5e9;
+  --green:    #059669;
+  --border:   #d1dce9;
+  --text:     #1a2840;
+  --muted:    #5a728a;
+  --white:    #ffffff;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
+
+/* NAVBAR */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 64px; height: 70px;
+  background: var(--white); border-bottom: 1px solid var(--border);
+  box-shadow: 0 1px 12px rgba(11,31,58,0.07);
+}
+.nav-logo { display:flex; flex-direction:column; line-height:1; text-decoration:none; }
+.nav-logo .brand { font-family:'Syne',sans-serif; font-weight:800; font-size:21px; letter-spacing:0.01em; color:var(--navy); }
+.nav-logo .sub { font-size:8.5px; letter-spacing:0.32em; text-transform:uppercase; color:var(--accent); margin-top:2px; }
+.nav-links { display:flex; gap:32px; }
+.nav-links a {
+  font-size:13px; font-weight:500; letter-spacing:0.05em; text-transform:uppercase;
+  color:var(--muted); text-decoration:none; transition:color .2s;
+  position:relative; padding-bottom:4px;
+}
+.nav-links a::after { content:''; position:absolute; bottom:0; left:0; right:100%; height:2px; background:var(--accent); transition:right .25s; }
+.nav-links a:hover { color:var(--navy); }
+.nav-links a:hover::after { right:0; }
+.nav-cta {
+  display:inline-flex; align-items:center; gap:8px; padding:10px 22px;
+  background:var(--accent); color:var(--white);
+  font-size:13px; font-weight:500; letter-spacing:0.06em; text-transform:uppercase;
+  text-decoration:none; border-radius:4px;
+  transition:background .2s, transform .2s;
+  box-shadow:0 3px 14px rgba(21,101,216,0.3);
+}
+.nav-cta:hover { background:var(--navy); transform:translateY(-1px); }
+
+/* TICKER */
+.ticker { margin-top:70px; background:var(--navy); padding:13px 0; overflow:hidden; white-space:nowrap; }
+.ticker-track { display:inline-flex; animation:ticker 32s linear infinite; }
+.ticker-item { display:inline-flex; align-items:center; gap:10px; padding:0 36px; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:rgba(255,255,255,0.6); }
+.ticker-dot { width:4px; height:4px; border-radius:50%; background:var(--accent2); flex-shrink:0; }
+
+/* SECTION COMMONS */
+.section-label {
+  display:inline-flex; align-items:center; gap:10px;
+  font-size:11px; letter-spacing:0.28em; text-transform:uppercase;
+  color:var(--accent); margin-bottom:14px; font-weight:600;
+}
+.section-label::before { content:''; width:22px; height:2px; background:var(--accent); display:inline-block; }
+.section-title { font-family:'Syne',sans-serif; font-size:clamp(28px,3.5vw,44px); font-weight:800; line-height:1.1; letter-spacing:-0.02em; color:var(--navy); margin-bottom:18px; }
+.section-sub { font-size:15.5px; line-height:1.8; color:var(--muted); max-width:540px; }
+
+/* SERVICES */
+.services { padding:96px 64px; background:var(--bg); }
+.services-header { display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:56px; gap:32px; flex-wrap:wrap; }
+.services-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+.service-card {
+  background:var(--white); border:1px solid var(--border); border-radius:10px;
+  padding:36px 32px; cursor:pointer;
+  transition:box-shadow .3s, transform .3s, border-color .3s;
+  position:relative; overflow:hidden;
+}
+.service-card::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:3px;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  transform:scaleX(0); transform-origin:left; transition:transform .35s;
+}
+.service-card:hover { box-shadow:0 12px 40px rgba(21,101,216,0.13); transform:translateY(-4px); border-color:rgba(21,101,216,0.25); }
+.service-card:hover::before { transform:scaleX(1); }
+.service-icon { width:54px; height:54px; background:linear-gradient(135deg,#eaf1ff,#dbeafe); border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:26px; margin-bottom:22px; transition:transform .3s; }
+.service-card:hover .service-icon { transform:scale(1.08); }
+.service-card h3 { font-family:'Syne',sans-serif; font-size:18px; font-weight:700; color:var(--navy); margin-bottom:12px; }
+.service-card p { font-size:14px; line-height:1.75; color:var(--muted); margin-bottom:20px; }
+.service-tags { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:20px; }
+.service-tag { padding:4px 10px; background:#eaf1ff; color:var(--accent); font-size:11px; letter-spacing:0.08em; text-transform:uppercase; border-radius:3px; font-weight:500; }
+.service-readmore { display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:600; color:var(--accent); letter-spacing:0.04em; border-top:1px solid var(--border); padding-top:16px; width:100%; }
+.service-readmore svg { transition:transform .25s; }
+.service-card:hover .service-readmore svg { transform:translateX(4px); }
+
+/* MODAL */
+.modal-overlay {
+  position:fixed; inset:0; z-index:500;
+  background:rgba(11,31,58,0.55); backdrop-filter:blur(6px);
+  display:flex; align-items:center; justify-content:center;
+  opacity:0; pointer-events:none; transition:opacity .3s;
+}
+.modal-overlay.open { opacity:1; pointer-events:all; }
+.modal {
+  background:var(--white); border-radius:14px;
+  width:100%; max-width:760px; max-height:88vh; overflow-y:auto;
+  transform:scale(.94) translateY(20px);
+  transition:transform .35s cubic-bezier(.22,1,.36,1);
+  box-shadow:0 32px 80px rgba(11,31,58,0.22); position:relative;
+}
+.modal-overlay.open .modal { transform:scale(1) translateY(0); }
+.modal-header {
+  background:linear-gradient(135deg,var(--navy),var(--navy2));
+  padding:40px 48px 36px; border-radius:14px 14px 0 0; position:relative;
+}
+.modal-icon { width:60px; height:60px; background:rgba(255,255,255,0.12); border-radius:14px; display:flex; align-items:center; justify-content:center; font-size:30px; margin-bottom:18px; }
+.modal-header h2 { font-family:'Syne',sans-serif; font-size:26px; font-weight:800; color:var(--white); margin-bottom:8px; }
+.modal-header p { font-size:15px; color:rgba(255,255,255,0.65); line-height:1.7; }
+.modal-close {
+  position:absolute; top:20px; right:20px; width:36px; height:36px;
+  background:rgba(255,255,255,0.12); border:none; border-radius:50%; cursor:pointer;
+  display:flex; align-items:center; justify-content:center; color:var(--white); font-size:18px; transition:background .2s;
+}
+.modal-close:hover { background:rgba(255,255,255,0.25); }
+.modal-body { padding:40px 48px; }
+.modal-section { margin-bottom:32px; }
+.modal-section h4 {
+  font-family:'Syne',sans-serif; font-size:14px; font-weight:700;
+  letter-spacing:0.12em; text-transform:uppercase; color:var(--accent); margin-bottom:14px;
+  display:flex; align-items:center; gap:8px;
+}
+.modal-section h4::after { content:''; flex:1; height:1px; background:var(--border); }
+.modal-section p { font-size:14.5px; line-height:1.85; color:var(--muted); }
+.modal-points { list-style:none; display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.modal-points li { display:flex; align-items:flex-start; gap:10px; font-size:13.5px; color:var(--text); line-height:1.6; }
+.modal-points li::before { content:'✓'; color:var(--green); font-weight:700; flex-shrink:0; margin-top:1px; }
+.modal-cta { display:flex; gap:12px; flex-wrap:wrap; margin-top:32px; padding-top:28px; border-top:1px solid var(--border); }
+.modal-btn { display:inline-flex; align-items:center; gap:8px; padding:12px 26px; background:var(--accent); color:var(--white); font-size:13px; font-weight:500; letter-spacing:0.06em; text-transform:uppercase; text-decoration:none; border-radius:4px; transition:background .2s; }
+.modal-btn:hover { background:var(--navy); }
+.modal-btn-ghost { display:inline-flex; align-items:center; gap:8px; padding:12px 26px; border:1px solid var(--border); color:var(--muted); font-size:13px; letter-spacing:0.06em; text-transform:uppercase; text-decoration:none; border-radius:4px; background:transparent; transition:border-color .2s,color .2s; }
+.modal-btn-ghost:hover { border-color:var(--accent); color:var(--accent); }
+
+/* ABOUT */
+.about { padding:96px 64px; background:var(--white); display:grid; grid-template-columns:1fr 1fr; gap:72px; align-items:center; }
+.about-content p { font-size:15px; line-height:1.85; color:var(--muted); margin-bottom:18px; }
+.mv-grid { display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:28px; }
+.mv-box { background:var(--bg2); border:1px solid var(--border); border-radius:8px; padding:22px; }
+.mv-box h4 { font-family:'Syne',sans-serif; font-size:12px; letter-spacing:0.22em; text-transform:uppercase; color:var(--accent); margin-bottom:8px; font-weight:700; }
+.mv-box p { font-size:13px; line-height:1.7; color:var(--muted); }
+.about-stats { background:var(--navy); border-radius:12px; padding:40px; }
+.about-stats-grid { display:grid; grid-template-columns:1fr 1fr; gap:1px; background:rgba(255,255,255,0.08); border-radius:6px; overflow:hidden; }
+.stat-box { padding:28px 24px; background:rgba(255,255,255,0.04); transition:background .2s; }
+.stat-box:hover { background:rgba(255,255,255,0.07); }
+.stat-num { font-family:'Syne',sans-serif; font-size:36px; font-weight:800; color:var(--white); line-height:1; margin-bottom:6px; }
+.stat-num span { color:var(--accent2); }
+.stat-label { font-size:12px; letter-spacing:0.1em; text-transform:uppercase; color:rgba(255,255,255,0.45); }
+
+/* WHY */
+.why { padding:96px 64px; background:var(--bg); }
+.why-header { text-align:center; margin-bottom:64px; }
+.why-header .section-label { justify-content:center; }
+.why-header .section-sub { margin:0 auto; text-align:center; }
+.why-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:18px; }
+.why-card { padding:32px 26px; background:var(--white); border:1px solid var(--border); border-radius:10px; transition:box-shadow .3s,transform .3s; }
+.why-card:hover { box-shadow:0 10px 32px rgba(21,101,216,0.1); transform:translateY(-3px); }
+.why-num { font-family:'Syne',sans-serif; font-size:38px; font-weight:800; color:#dde8f5; line-height:1; margin-bottom:14px; }
+.why-card h3 { font-family:'Syne',sans-serif; font-size:16px; font-weight:700; color:var(--navy); margin-bottom:10px; }
+.why-card p { font-size:13px; line-height:1.75; color:var(--muted); }
+
+/* TRUST BAR */
+.trust-bar { padding:52px 64px; background:var(--white); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+.trust-bar > p { text-align:center; font-size:11px; letter-spacing:0.3em; text-transform:uppercase; color:var(--muted); margin-bottom:32px; }
+.trust-logos { display:flex; justify-content:center; gap:52px; flex-wrap:wrap; align-items:center; }
+.trust-logo { font-family:'Syne',sans-serif; font-size:14px; font-weight:700; letter-spacing:0.08em; color:#b0c0d8; text-transform:uppercase; transition:color .3s; cursor:default; }
+.trust-logo:hover { color:var(--navy); }
+
+/* CTA */
+.cta-section { padding:96px 64px; background:var(--navy); text-align:center; position:relative; overflow:hidden; }
+.cta-section::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 60% 50%,rgba(21,101,216,0.35) 0%,transparent 65%); }
+.cta-section .section-label { justify-content:center; color:#7eb3ff; }
+.cta-section .section-label::before { background:#7eb3ff; }
+.cta-section .section-title { color:var(--white); }
+.cta-section .section-sub { color:rgba(255,255,255,0.6); margin:0 auto 36px; text-align:center; }
+.cta-actions { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; position:relative; z-index:1; }
+.btn-primary { display:inline-flex; align-items:center; gap:10px; padding:14px 32px; background:var(--accent); color:var(--white); font-size:14px; font-weight:500; letter-spacing:0.04em; border-radius:4px; text-decoration:none; transition:background .2s,transform .2s; box-shadow:0 4px 20px rgba(21,101,216,0.4); }
+.btn-primary:hover { background:#0f4db5; transform:translateY(-1px); }
+.btn-white { display:inline-flex; align-items:center; gap:10px; padding:14px 32px; background:var(--white); color:var(--navy); font-size:14px; font-weight:500; letter-spacing:0.04em; border-radius:4px; text-decoration:none; transition:background .2s; }
+.btn-white:hover { background:#e8eef7; }
+
+/* CONTACT */
+.contact { padding:96px 64px; background:var(--bg2); }
+.contact-inner { display:grid; grid-template-columns:1fr 1fr; gap:72px; align-items:start; max-width:1120px; margin:0 auto; }
+.contact-info p { color:var(--muted); line-height:1.85; margin-bottom:32px; font-size:15px; }
+.contact-detail { display:flex; align-items:flex-start; gap:14px; margin-bottom:18px; font-size:14px; }
+.contact-detail .icon { width:42px; height:42px; background:var(--white); border:1px solid var(--border); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:19px; flex-shrink:0; }
+.contact-detail span { color:var(--muted); font-size:12px; letter-spacing:0.05em; text-transform:uppercase; }
+.contact-detail strong { display:block; color:var(--text); margin-top:2px; }
+.form-wrap { background:var(--white); border:1px solid var(--border); border-radius:12px; padding:42px; position:relative; }
+.form-wrap::before { content:''; position:absolute; top:0; left:40px; right:40px; height:3px; background:linear-gradient(90deg,var(--accent),var(--accent2)); border-radius:3px; }
+.form-group { margin-bottom:18px; }
+.form-group input,.form-group textarea,.form-group select { width:100%; padding:13px 16px; background:var(--bg); border:1px solid var(--border); border-radius:6px; color:var(--text); font-family:'DM Sans',sans-serif; font-size:14px; outline:none; transition:border-color .2s; appearance:none; }
+.form-group input::placeholder,.form-group textarea::placeholder { color:#9aafc4; }
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus { border-color:var(--accent); box-shadow:0 0 0 3px rgba(21,101,216,0.09); }
+.form-group textarea { height:110px; resize:vertical; }
+.form-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.form-submit { width:100%; padding:14px; background:var(--accent); color:var(--white); border:none; border-radius:6px; font-family:'Syne',sans-serif; font-size:14px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; cursor:pointer; transition:background .2s; box-shadow:0 3px 16px rgba(21,101,216,0.25); }
+.form-submit:hover { background:var(--navy); }
+
+/* FOOTER */
+footer { background:var(--navy); padding:64px 64px 32px; }
+.footer-grid { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:56px; margin-bottom:48px; }
+.footer-brand .brand { font-family:'Syne',sans-serif; font-size:21px; font-weight:800; color:var(--white); }
+.footer-brand .sub { font-size:8.5px; letter-spacing:0.32em; text-transform:uppercase; color:var(--accent2); margin-bottom:14px; }
+.footer-brand p { font-size:13px; color:rgba(255,255,255,0.45); line-height:1.8; }
+.footer-col h4 { font-family:'Syne',sans-serif; font-size:12px; letter-spacing:0.18em; text-transform:uppercase; color:rgba(255,255,255,0.7); margin-bottom:18px; }
+.footer-col a { display:block; font-size:13px; color:rgba(255,255,255,0.4); text-decoration:none; margin-bottom:10px; transition:color .2s; }
+.footer-col a:hover { color:var(--accent2); }
+.footer-bottom { display:flex; justify-content:space-between; align-items:center; padding-top:24px; border-top:1px solid rgba(255,255,255,0.08); font-size:12px; color:rgba(255,255,255,0.3); }
+
+/* REVEAL */
+.reveal { opacity:0; transform:translateY(28px); transition:opacity .65s ease,transform .65s ease; }
+.reveal.visible { opacity:1; transform:translateY(0); }
+
+@keyframes ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+@media(max-width:1024px){
+  .services-grid{grid-template-columns:repeat(2,1fr)}
+  .why-grid{grid-template-columns:repeat(2,1fr)}
+  .about{grid-template-columns:1fr;gap:48px}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:36px}
+  .contact-inner{grid-template-columns:1fr;gap:48px}
+}
+@media(max-width:768px){
+  nav{padding:0 20px}
+  .nav-links{display:none}
+  .services,.about,.why,.cta-section,.contact,footer,.trust-bar{padding-left:20px;padding-right:20px}
+  .services-grid,.why-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr}
+  .footer-bottom{flex-direction:column;gap:8px;text-align:center}
+  .mv-grid{grid-template-columns:1fr}
+  .form-row{grid-template-columns:1fr}
+  .modal-body{padding:28px 24px}
+  .modal-header{padding:28px 24px 24px}
+  .modal-points{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="brand">Tekhnogaint</div>
+    <div class="sub">IT Services</div>
+  </a>
+  <div class="nav-links">
+    <a href="#services">Services</a>
+    <a href="#about">About</a>
+    <a href="#why">Why Us</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <a href="tel:+917993384854" class="nav-cta">☎ +91 799 338 4854</a>
+</nav>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track">
+    <span class="ticker-item"><span class="ticker-dot"></span>Cybersecurity</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Cloud Architecture</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Identity & Access Management</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>SIEM Operations</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Network Engineering</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Zero Trust Security</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>SOC as a Service</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>DevSecOps</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Cybersecurity</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Cloud Architecture</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Identity & Access Management</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>SIEM Operations</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Network Engineering</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Zero Trust Security</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>SOC as a Service</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>DevSecOps</span>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="services-header reveal">
+    <div>
+      <div class="section-label">Our Services</div>
+      <h2 class="section-title">Information Techonology<br>Services Portfolio</h2>
+    </div>
+    <p class="section-sub">From perimeter defense to cloud-native architecture — click any service card to explore what we deliver for your enterprise.</p>
+  </div>
+  <div class="services-grid">
+
+    <div class="service-card reveal" onclick="openModal('cyber')">
+      <div class="service-icon">🛡️</div>
+      <h3>Cybersecurity</h3>
+      <p>Enterprise-grade security architecture built to neutralize advanced persistent threats and keep your critical assets impenetrable.</p>
+      <div class="service-tags"><span class="service-tag">Pen Testing</span><span class="service-tag">Threat Intel</span><span class="service-tag">SOC Ops</span></div>
+      <div class="service-readmore">Read More <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+    </div>
+
+    <div class="service-card reveal" onclick="openModal('cloud')">
+      <div class="service-icon">☁️</div>
+      <h3>Cloud Solutions</h3>
+      <p>Accelerate transformation with multi-cloud and hybrid strategies built on AWS, Azure, and GCP for unmatched scalability.</p>
+      <div class="service-tags"><span class="service-tag">Migration</span><span class="service-tag">FinOps</span><span class="service-tag">Multi-Cloud</span></div>
+      <div class="service-readmore">Read More <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+    </div>
+
+    <div class="service-card reveal" onclick="openModal('network')">
+      <div class="service-icon">🌐</div>
+      <h3>Network Engineering</h3>
+      <p>Design and delivery of high-performance, fault-tolerant enterprise networks that keep your operations running without interruption.</p>
+      <div class="service-tags"><span class="service-tag">SD-WAN</span><span class="service-tag">BGP/MPLS</span><span class="service-tag">NOC Support</span></div>
+      <div class="service-readmore">Read More <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+    </div>
+
+    <div class="service-card reveal" onclick="openModal('iam')">
+      <div class="service-icon">🔑</div>
+      <h3>Identity & Access Management</h3>
+      <p>Enforce least-privilege access with zero-trust identity frameworks, MFA, SSO, and PAM — eliminating unauthorized exposure.</p>
+      <div class="service-tags"><span class="service-tag">Zero Trust</span><span class="service-tag">SSO / MFA</span><span class="service-tag">PAM</span></div>
+      <div class="service-readmore">Read More <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+    </div>
+
+    <div class="service-card reveal" onclick="openModal('siem')">
+      <div class="service-icon">📊</div>
+      <h3>SIEM & Threat Operations</h3>
+      <p>Real-time visibility across your entire attack surface — correlating signals, surfacing incidents, and accelerating response.</p>
+      <div class="service-tags"><span class="service-tag">Splunk</span><span class="service-tag">Sentinel</span><span class="service-tag">UEBA</span></div>
+      <div class="service-readmore">Read More <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+    </div>
+
+    <div class="service-card reveal" onclick="openModal('devsecops')">
+      <div class="service-icon">⚙️</div>
+      <h3>Managed IT & DevSecOps</h3>
+      <p>Ongoing operational excellence through managed services, infrastructure automation, and security-embedded DevSecOps pipelines.</p>
+      <div class="service-tags"><span class="service-tag">Managed IT</span><span class="service-tag">CI/CD Security</span><span class="service-tag">IaC</span></div>
+      <div class="service-readmore">Read More <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+  <div class="modal" id="modal-box">
+    <div class="modal-header">
+      <button class="modal-close" onclick="closeModal(null,true)">✕</button>
+      <div class="modal-icon" id="m-icon"></div>
+      <h2 id="m-title"></h2>
+      <p id="m-sub"></p>
+    </div>
+    <div class="modal-body">
+      <div class="modal-section">
+        <h4>Overview</h4>
+        <p id="m-overview"></p>
+      </div>
+      <div class="modal-section">
+        <h4>What We Deliver</h4>
+        <ul class="modal-points" id="m-points"></ul>
+      </div>
+      <div class="modal-section">
+        <h4>Who It's For</h4>
+        <p id="m-who"></p>
+      </div>
+      <div class="modal-cta">
+        <a href="#contact" class="modal-btn" onclick="closeModal(null,true)">Request a Consultation ↗</a>
+        <a href="tel:+917993384854" class="modal-btn-ghost">📞 +91 799 338 4854</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-content reveal">
+    <div class="section-label">Who We Are</div>
+    <h2 class="section-title">Designed for Businesses Where Failure Is Not an Option</h2>
+    <p>Tekhnogaint is a global IT services and technology consulting firm helping small, mid-market, and enterprise organizations build resilient, secure, and future-ready digital infrastructure.</p>
+    <p>Founded by industry veterans with deep roots in cybersecurity, cloud engineering, and enterprise IT, we operate as a strategic partner — not just a vendor. Our cross-functional teams bring certified architects, security analysts, and integration specialists together to deliver outcomes that matter.</p>
+    <a href="#contact" class="btn-primary" style="margin-top:8px;display:inline-flex">Speak to Our Team ↗</a>
+    <div class="mv-grid">
+      <div class="mv-box">
+        <h4>Mission</h4>
+        <p>To empower organizations worldwide with intelligent, secure, and scalable IT solutions that accelerate growth and eliminate risk.</p>
+
+      </div>
+      <div class="mv-box">
+        <h4>Vision</h4>
+        <p>To be the most trusted technology partner for enterprises navigating a connected, cloud-first world.</p>
+      </div>
+    </div>
+  </div>
+  <div class="about-visual reveal">
+    <div class="about-stats">
+      <div class="about-stats-grid">
+        <div class="stat-box"><div class="stat-num">100<span>+</span></div><div class="stat-label">Global Clients</div></div>
+        <div class="stat-box"><div class="stat-num">99.98<span>%</span></div><div class="stat-label">Uptime SLA</div></div>
+        <div class="stat-box"><div class="stat-num">5<span>+</span></div><div class="stat-label">Years Expertise</div></div>
+        <div class="stat-box"><div class="stat-num">10<span>+</span></div><div class="stat-label">Countries Served</div></div>
+      </div>
+      <p style="font-size:13px;color:rgba(255,255,255,0.35);margin-top:28px;line-height:1.7;">Delivering measurable outcomes across finance, healthcare, retail, and critical infrastructure sectors worldwide.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <p>Trusted by leading organizations across industries</p>
+  <div class="trust-logos">
+    <div class="trust-logo">FinTech Pulse</div>
+    <div class="trust-logo">Axion Health</div>
+    <div class="trust-logo">NexaRetail</div>
+    <div class="trust-logo">CoreLogix</div>
+    <div class="trust-logo">Vantara Systems</div>
+    <div class="trust-logo">BlueSky Capital</div>
+  </div>
+</div>
+
+<!-- WHY US -->
+<section class="why" id="why">
+  <div class="why-header reveal">
+    <div class="section-label">Why Tekhnogaint</div>
+    <h2 class="section-title">The Difference Is in the Delivery</h2>
+    <p class="section-sub">We measure success by the resilience, performance, and peace of mind our clients experience — not just the services we provide.</p>
+  </div>
+  <div class="why-grid">
+    <div class="why-card reveal"><div class="why-num">01</div><h3>Outcome-First Approach</h3><p>Every engagement is scoped around business outcomes. We define success metrics before the first line of code or configuration is written.</p></div>
+    <div class="why-card reveal"><div class="why-num">02</div><h3>Certified Expert Bench</h3><p>Our teams carry CISSP, CISM, AWS, Azure, CCNP certifications — ensuring every client receives delivery from true domain authorities.</p></div>
+    <div class="why-card reveal"><div class="why-num">03</div><h3>24/7 Operational Coverage</h3><p>Threats don't follow business hours. Our round-the-clock SOC and managed support teams provide uninterrupted monitoring across all time zones.</p></div>
+    <div class="why-card reveal"><div class="why-num">04</div><h3>Compliance-Ready Delivery</h3><p>All solutions are engineered with ISO 27001, SOC 2, GDPR, HIPAA, and PCI-DSS compliance built in across global markets.</p></div>
+    <div class="why-card reveal"><div class="why-num">05</div><h3>Vendor-Agnostic Strategy</h3><p>We are not tied to any single vendor. Recommendations are driven purely by what is best for your environment and roadmap.</p></div>
+    <div class="why-card reveal"><div class="why-num">06</div><h3>Scalable Engagement Models</h3><p>From project-based consulting to full managed service contracts — flexible models designed to scale with your growth without billing surprises.</p></div>
+    <div class="why-card reveal"><div class="why-num">07</div><h3>Proven Global Delivery</h3><p>With active delivery across 40+ countries, we bring global scale and local context to every engagement.</p></div>
+    <div class="why-card reveal"><div class="why-num">08</div><h3>Client Success Partnership</h3><p>A dedicated Client Success Manager ensures continuous alignment, proactive communication, and accountable delivery throughout every engagement.</p></div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div style="position:relative;z-index:1">
+    <div class="section-label">Get Started</div>
+    <h2 class="section-title reveal">Ready to Transform<br>Your IT Infrastructure?</h2>
+    <p class="section-sub reveal">Talk to a Tekhnogaint specialist today and discover how we can accelerate your digital roadmap.</p>
+    <div class="cta-actions reveal">
+      <a href="#contact" class="btn-primary">Request a Consultation ↗</a>
+      <a href="tel:+917993384854" class="btn-white">📞 +91 799 338 4854</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-inner">
+    <div class="contact-info reveal">
+      <div class="section-label">Contact Us</div>
+      <h2 class="section-title" style="font-size:32px">Let's Start a<br>Conversation</h2>
+      <p>Whether you need a technology audit, security assessment, or a long-term managed services partner — our team is ready to define the right path forward.</p>
+      <div class="contact-detail"><div class="icon">📞</div><div><span>Call Us Directly</span><strong><a href="tel:+917993384854" style="color:var(--text);text-decoration:none">+91 799 338 4854</a></strong></div></div>
+      <div class="contact-detail"><div class="icon">✉️</div><div><span>Email</span><strong>info@tekhnogaint.com</strong></div></div>
+      <div class="contact-detail"><div class="icon">🌐</div><div><span>Operations</span><strong>Worldwide — 40+ Countries</strong></div></div>
+    </div>
+    <div class="reveal">
+      <div class="form-wrap">
+        <h3 style="font-family:'Syne',sans-serif;font-size:20px;color:var(--navy);margin-bottom:24px;">Send Us a Message</h3>
+        <div class="form-row">
+          <div class="form-group"><input type="text" placeholder="First Name"></div>
+          <div class="form-group"><input type="text" placeholder="Last Name"></div>
+        </div>
+        <div class="form-group"><input type="email" placeholder="Business Email"></div>
+        <div class="form-group"><input type="text" placeholder="Company / Organization"></div>
+        <div class="form-group">
+          <select>
+            <option value="" disabled selected>Service of Interest</option>
+            <option>Cybersecurity</option>
+            <option>Cloud Solutions</option>
+            <option>Network Engineering</option>
+            <option>Identity & Access Management</option>
+            <option>SIEM & Threat Operations</option>
+            <option>Managed IT Services</option>
+            <option>General Inquiry</option>
+          </select>
+        </div>
+        <div class="form-group"><textarea placeholder="Describe your requirements or challenges…"></textarea></div>
+        <button class="form-submit">Submit Inquiry →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="brand">Tekhnogaint</div>
+      <div class="sub">IT Services</div>
+      <p>Engineering resilient digital enterprises through world-class cybersecurity, cloud, and network solutions — trusted across 40+ countries.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <a href="#services">Cybersecurity</a>
+      <a href="#services">Cloud Solutions</a>
+      <a href="#services">Network Engineering</a>
+      <a href="#services">IAM</a>
+      <a href="#services">SIEM Operations</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="#about">About Us</a>
+      <a href="#why">Why Tekhnogaint</a>
+      <a href="#contact">Contact</a>
+      <a href="#">Careers</a>
+      <a href="#">Case Studies</a>
+    </div>
+    <div class="footer-col">
+      <h4>Compliance</h4>
+      <a href="#">ISO 27001</a>
+      <a href="#">SOC 2 Type II</a>
+      <a href="#">GDPR Advisory</a>
+      <a href="#">HIPAA</a>
+      <a href="#">PCI-DSS</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Tekhnogaint IT Services. All rights reserved.</span>
+    <span>Privacy Policy · Terms of Service · Cookie Policy</span>
+  </div>
+</footer>
+
+<script>
+const services = {
+  cyber: {
+    icon:'🛡️', title:'Cybersecurity',
+    sub:'Advanced threat defense for enterprise environments — from perimeter to endpoint.',
+    overview:'Tekhnogaint delivers a comprehensive, defense-in-depth cybersecurity program tailored to your organization\'s risk profile. We combine proactive threat intelligence, continuous monitoring, and rapid incident response to neutralize attacks before they become breaches. Our certified security professionals work as an extension of your team, providing the expertise and tooling necessary to protect your most critical assets around the clock.',
+    points:['Security Architecture & Design','Penetration Testing & Red Teaming','Endpoint Detection & Response (EDR)','Threat Intelligence & Hunting','24/7 SOC-as-a-Service','Vulnerability Management Programs','Security Awareness Training','Incident Response & Forensics'],
+    who:'Ideal for organizations in regulated industries — financial services, healthcare, retail, and critical infrastructure — requiring audit-ready, enterprise-grade protection and continuous security operations.'
+  },
+  cloud: {
+    icon:'☁️', title:'Cloud Solutions',
+    sub:'Multi-cloud strategy, migration, and managed cloud operations at enterprise scale.',
+    overview:'Whether you\'re beginning your cloud journey or optimizing an existing multi-cloud environment, Tekhnogaint architects solutions that balance agility, performance, and cost. We specialize in AWS, Microsoft Azure, and Google Cloud Platform, delivering seamless migrations, cloud-native application modernization, and FinOps programs that ensure every dollar spent on cloud delivers measurable business value.',
+    points:['Cloud Readiness Assessment','Migration & Lift-and-Shift','Multi-Cloud Architecture','Cloud-Native Modernization','FinOps & Cost Optimization','Cloud Security Posture Management','Hybrid & Private Cloud','Disaster Recovery & Business Continuity'],
+    who:'Organizations of all sizes seeking to accelerate digital transformation, reduce infrastructure costs, and build scalable, resilient cloud environments that meet governance and compliance requirements.'
+  },
+  network: {
+    icon:'🌐', title:'Network Engineering',
+    sub:'High-performance, fault-tolerant enterprise network design and operations.',
+    overview:'A resilient, high-throughput network is the backbone of every modern enterprise. Tekhnogaint designs, deploys, and manages enterprise network infrastructure that supports business-critical workloads — from secure campus LANs and SD-WAN deployments to complex data center interconnects and global MPLS fabrics. Our NOC teams provide proactive monitoring and rapid fault resolution to minimize downtime.',
+    points:['SD-WAN Design & Deployment','Data Center Networking','BGP / MPLS Routing','Wireless & Campus LAN','Network Security Segmentation','Load Balancing & CDN','24/7 NOC Operations','Network Observability & Analytics'],
+    who:'Enterprises with distributed operations, data center environments, or complex WAN requirements that demand carrier-grade reliability and performance at scale.'
+  },
+  iam: {
+    icon:'🔑', title:'Identity & Access Management',
+    sub:'Zero-trust identity frameworks and privileged access control for every endpoint.',
+    overview:'Identity is the new perimeter. Tekhnogaint\'s IAM practice implements zero-trust principles across your entire ecosystem — ensuring that every user, device, and service is authenticated, authorized, and audited before access is granted. From enterprise SSO and MFA deployments to Privileged Access Management and lifecycle governance, we eliminate unauthorized exposure while streamlining the user experience.',
+    points:['Zero Trust Architecture','Single Sign-On (SSO)','Multi-Factor Authentication (MFA)','Privileged Access Management (PAM)','Identity Governance & Administration','Active Directory / Azure AD','Role-Based Access Control (RBAC)','Access Certification & Audit'],
+    who:'Any organization concerned with insider threats, regulatory compliance (HIPAA, SOX, GDPR), or managing user access across cloud, SaaS, and on-premise environments.'
+  },
+  siem: {
+    icon:'📊', title:'SIEM & Threat Operations',
+    sub:'Real-time threat detection, correlation, and accelerated incident response.',
+    overview:'Security events generate massive volumes of data — and most organizations lack the tools and expertise to make sense of it in time to prevent a breach. Tekhnogaint deploys, tunes, and operates SIEM platforms that cut through the noise, surface real threats, and drive rapid, coordinated response. Our analysts enrich alerts with context, investigate anomalies, and act on behalf of your team before threats escalate.',
+    points:['SIEM Platform Deployment & Tuning','Splunk, Microsoft Sentinel, QRadar','User & Entity Behavior Analytics (UEBA)','Log Management & Correlation','Threat Detection Use Case Development','Automated Incident Response (SOAR)','Compliance Reporting & Dashboards','Threat Intelligence Integration'],
+    who:'Mid-market and enterprise organizations needing a mature, managed detection and response capability — especially those in regulated industries or with limited internal security operations capacity.'
+  },
+  devsecops: {
+    icon:'⚙️', title:'Managed IT & DevSecOps',
+    sub:'Continuous operational excellence and security-embedded engineering pipelines.',
+    overview:'Tekhnogaint\'s managed IT and DevSecOps practice brings together proactive infrastructure management, automation engineering, and security integration within modern CI/CD workflows. We ensure engineering teams can ship faster — without introducing compliance risk or security vulnerabilities. From Infrastructure-as-Code to container security and policy-as-code, we embed protection at every stage of the software delivery lifecycle.',
+    points:['Managed IT Support & Operations','Infrastructure as Code (Terraform / Ansible)','CI/CD Pipeline Security','Container & Kubernetes Security','Policy as Code (OPA, Sentinel)','Patch & Vulnerability Management','SLA-Backed Helpdesk Support','Technology Roadmap Advisory'],
+    who:'Technology-forward organizations and engineering teams that require operational excellence, compliance alignment, and the ability to move fast without breaking security or governance standards.'
+  }
+};
+
+function openModal(key) {
+  const s = services[key];
+  document.getElementById('m-icon').textContent = s.icon;
+  document.getElementById('m-title').textContent = s.title;
+  document.getElementById('m-sub').textContent = s.sub;
+  document.getElementById('m-overview').textContent = s.overview;
+  document.getElementById('m-who').textContent = s.who;
+  document.getElementById('m-points').innerHTML = s.points.map(p => `<li>${p}</li>`).join('');
+  document.getElementById('modal-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(e, force) {
+  if (force || (e && e.target === document.getElementById('modal-overlay'))) {
+    document.getElementById('modal-overlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(null, true); });
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, { threshold: 0.10, rootMargin: '0px 0px -30px 0px' });
+document.querySelectorAll('.reveal').forEach((el, i) => { el.style.transitionDelay = (i % 4) * 0.07 + 's'; observer.observe(el); });
+
+document.querySelector('.form-submit').addEventListener('click', function() {
+  this.textContent = '✓ Message Sent — We\'ll be in touch shortly';
+  this.style.background = '#059669';
+  setTimeout(() => { this.textContent = 'Submit Inquiry →'; this.style.background = ''; }, 4000);
+});
+</script>
+</body>
+</html>
